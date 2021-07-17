@@ -44,6 +44,7 @@ module.exports = function (grunt) {
                 dest: userhome('.vimrc'),
                 relativeSrc: '<%= config.path_dotfiles%>' + '/vim/vimrc'
             },
+
             vim: {
                 dest: userhome('.vim'),
                 relativeSrc: '<%= config.path_dotfiles%>' + '/vim',
@@ -62,6 +63,11 @@ module.exports = function (grunt) {
                 relativeSrc: '<%= config.path_dotfiles%>' + '/zsh/zshrc'
             },
 
+            zshenv: {
+                dest: userhome('.zshenv'),
+                relativeSrc: '<%= config.path_dotfiles%>' + '/zsh/zshenv'
+            },
+
             starship: {
                 dest: userhome('.config/starship.toml'),
                 relativeSrc: '<%= config.path_dotfiles%>' + '/zsh/starship.toml'
@@ -73,11 +79,11 @@ module.exports = function (grunt) {
                 relativeSrc: '<%= config.path_dotfiles%>' + '/emacs/emacs.el'
             },
 
-	    // kde symlinks
-	    toucheggconfig: {
-		dest: userhome('.config/touchegg/touchegg.conf'),
-		relativeSrc: '<%= config.path_dotfiles%>' + '/kde/touchegg.conf'
-	    }
+            // kde symlinks
+            toucheggconfig: {
+                dest: userhome('.config/touchegg/touchegg.conf'),
+                relativeSrc: '<%= config.path_dotfiles%>' + '/kde/touchegg.conf'
+            }
         },
 
         mkdir: {
@@ -106,6 +112,7 @@ module.exports = function (grunt) {
         'mkdir:dotzinit',
         'gitclone:zinit',
         'symlink:zshrc',
+        'symlink:zshenv',
         'symlink:starship'
     ]);
     grunt.registerTask('emacs', ['symlink:emacsconfig']);
