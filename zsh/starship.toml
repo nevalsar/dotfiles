@@ -4,9 +4,6 @@ disabled = true
 [aws]
 symbol = "  "
 
-[conda]
-symbol = " "
-
 [dart]
 symbol = " "
 

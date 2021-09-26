@@ -1,7 +1,7 @@
 (setq inhibit-startup-message t)	; disable startup message
 (menu-bar-mode -1)			; hide menu bar
 (tool-bar-mode -1)			; hide tool bar
-(column-number-mode)  		       	; show column numbers
+(column-number-mode)			; show column numbers
 (global-display-line-numbers-mode)	; show line numbers
 
 ;; Configure scroll behaviour
@@ -69,7 +69,7 @@
   :config
   (ivy-mode)
   (setq ivy-use-virtual-buffers t
-	ivy-count-format "(%d/%d) "))
+    ivy-count-format "(%d/%d) "))
 
 (use-package counsel
   :after ivy
@@ -85,3 +85,10 @@
 ;; Use Ivy to search and diff files
 ;; https://github.com/redguardtoo/find-file-in-project
 (use-package find-file-in-project)
+
+
+;; Add markdown support
+;; https://github.com/jrblevin/markdown-mode
+(use-package markdown-mode
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
