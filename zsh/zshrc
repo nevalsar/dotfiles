@@ -87,7 +87,7 @@ compinit
 ###
 
 # Load identities
-function ssh-identity-load() {
+function load-identities() {
 	 zstyle ':prezto:module:ssh:load' identities 'id_nevin_github'
 	 zinit ice svn
 	 zinit snippet PZT::modules/ssh
