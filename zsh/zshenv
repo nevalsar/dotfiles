@@ -1,1 +1,7 @@
 source "$HOME/.cargo/env"
+
+# Set up additional paths
+path+=(~/.npm-global/bin ~/.local/bin)
+
+# export to sub-processes
+export PATH
