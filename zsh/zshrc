@@ -69,12 +69,15 @@ if [ $? -eq 0 ]; then
 ### End configure conda
 
 ### Configure junegunn/fzf
+
+export FZF_DEFAULT_COMMAND="fd . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
 #
 # Source key binding and completion
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
-# Use ~~ as trigger sequence instead of default **
-export FZF_COMPLETION_TRIGGER='~~'
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='border --info=inline'
@@ -110,3 +113,4 @@ esac
 
 # Source aliases
 source $DOTFILES/zsh/aliases.zsh
+
