@@ -83,7 +83,13 @@ module.exports = function (grunt) {
             toucheggconfig: {
                 dest: userhome('.config/touchegg/touchegg.conf'),
                 relativeSrc: '<%= config.path_dotfiles%>' + '/kde/touchegg.conf'
-            }
+            },
+
+	    // tmux symlinks
+	    tmuxconfig: {
+		dest: userhome('.tmux.conf'),
+		relativeSrc: '<%= config.path_dotfiles%>' + 'tmux.conf'
+	    }
         },
 
         mkdir: {
@@ -117,6 +123,7 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('emacs', ['symlink:emacsconfig']);
     grunt.registerTask('kde', ['symlink:toucheggconfig']);
+    grunt.registerTask('tmux', ['symlink: tmuxconfig']);
     grunt.registerTask('banner', function () {
         grunt.log.writeln(grunt.file.read('templates/banner'));
     });
