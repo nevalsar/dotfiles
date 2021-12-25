@@ -14,6 +14,7 @@ Plug 'maximbaz/lightline-ale'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SidOfc/mkdx'
 
 " Initialize plugin system
 call plug#end()
