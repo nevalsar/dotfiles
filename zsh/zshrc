@@ -1,5 +1,4 @@
 source ~/.znap/zsh-snap/znap.zsh
-export DOTFILES=$HOME/source/github/dotfiles
 
 # Enable menu-driven completion
 zstyle ':completion:*' menu select
@@ -45,6 +44,21 @@ function source-ros-noetic() {
 # Source ROS Foxy
 function source-ros-foxy() {
     source /opt/ros/foxy/setup.zsh
+}
+
+# Set tab titles in Konsole
+set-konsole-tab-title-type ()
+{
+    local _title="$1"
+    local _type=${2:-0}
+    [[ -z "${_title}" ]]               && return 1
+    [[ -z "${KONSOLE_DBUS_SERVICE}" ]] && return 1
+    [[ -z "${KONSOLE_DBUS_SESSION}" ]] && return 1
+    qdbus >/dev/null "${KONSOLE_DBUS_SERVICE}" "${KONSOLE_DBUS_SESSION}" setTabTitleFormat "${_type}" "${_title}"
+}
+set-konsole-tab-title ()
+{
+    set-konsole-tab-title-type "$1" && set-konsole-tab-title-type "$1" 1
 }
 
 ### End functions
@@ -112,7 +126,3 @@ ssh)          fzf "$@" --preview 'dig {}' ;;
 esac
 }
 ### End configure junegunn/fzf
-
-# Source aliases
-source $DOTFILES/zsh/aliases.zsh
-

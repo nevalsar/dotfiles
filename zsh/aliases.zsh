@@ -1,3 +1,4 @@
+# Shortcut for system file launch tool
 alias open=xdg-open
 
 # Git aliases
