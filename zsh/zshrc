@@ -126,3 +126,13 @@ ssh)          fzf "$@" --preview 'dig {}' ;;
 esac
 }
 ### End configure junegunn/fzf
+
+# Enable command-line editing in external editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+# Set default editor
+export VISUAL='emacsclient -t'
+export EDITOR='emacsclient -t'
+
