@@ -90,6 +90,9 @@ export FZF_DEFAULT_COMMAND="fd . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd -t d . $HOME"
 
+# Press CTRL-Y to copy the line to clipboard and aborts fzf
+export FZF_DEFAULT_OPTS="--bind 'ctrl-w:execute-silent(echo {} | xclip -i -sel clip)+abort'"
+
 #
 # Source key binding and completion
 source /usr/share/doc/fzf/examples/key-bindings.zsh
