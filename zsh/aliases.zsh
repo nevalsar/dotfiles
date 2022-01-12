@@ -1,6 +1,9 @@
 # Shortcut for system file launch tool
 alias open=xdg-open
 
+# alias for using emacs when running in server mode
+alias em='emacsclient -t'
+
 # Git aliases
 #
 alias gb='git branch'
