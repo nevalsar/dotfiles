@@ -1,8 +1,14 @@
-# Shortcut for system file launch tool
-alias open=xdg-open
+# # Open files cleanly with default program
+function open () {
+  nohup xdg-open "$*" > /dev/null 2>&1
+}
 
 # alias for using emacs when running in server mode
-alias em='emacsclient -t'
+alias em='emacsclient --tty'
+alias ema='emacsclient --create-frame --no-wait'
+
+# alias for kubectl via minikube
+alias kubectl="minikube kubectl --"
 
 # Git aliases
 #
