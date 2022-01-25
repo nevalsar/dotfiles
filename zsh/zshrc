@@ -42,8 +42,9 @@ function source-ros-noetic() {
 }
 
 # Source ROS Foxy
-function source-ros-foxy() {
-    source /opt/ros/foxy/setup.zsh
+function source-ros-galactic() {
+    source /opt/ros/galactic/setup.zsh
+    export ROS_DOMAIN_ID=42
 }
 
 # Set tab titles in Konsole
@@ -139,3 +140,6 @@ bindkey "^X^E" edit-command-line
 export VISUAL='emacsclient -t'
 export EDITOR='emacsclient -t'
 
+# Fix comment highlight color since kitty doesn't interpret bold colors as bright
+# colors (zsh comments are set to bold black by zsh-syntax-highlighting plugin)
+ZSH_HIGHLIGHT_STYLES[comment]=fg=245
