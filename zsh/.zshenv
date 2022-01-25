@@ -1,5 +1,3 @@
-export DOTFILES=$HOME/source/github/dotfiles
-
 # https://zsh.sourceforge.io/Contrib/startup/users/debbiep/dot.zshenv
 # Function to remove non-existent directories from array.
 rationalize-path () {
@@ -58,7 +56,7 @@ export HOMEBREW_REPOSITORY=~/.linuxbrew/Homebrew
 export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
 
 # Source aliases
-source $DOTFILES/zsh/aliases.zsh
+source $HOME/.aliases.zsh
 
 # Set up pyenv
 export PYENV_ROOT="$HOME/.pyenv"
