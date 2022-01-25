@@ -15,6 +15,8 @@
       mouse-wheel-scroll-amount '(2 ((shift) . 1))	; mouse scrolls by 2 lines, by 1 if shift is held
       mouse-wheel-progressive-speed nil)
 
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 ;; --------------------------------------------------
 ;; Using straight.el for package management
