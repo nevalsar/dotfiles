@@ -60,3 +60,7 @@ export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
 # Source aliases
 source $DOTFILES/zsh/aliases.zsh
 
+# Set up pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+path=($PYENV_ROOT/bin "$path[@]")
+eval "$(pyenv init -)"
