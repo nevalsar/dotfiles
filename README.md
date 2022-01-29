@@ -1,36 +1,18 @@
 # Dotfiles
-My personal dotfiles repo and Node-powered bootstrapper.
+My personal dotfiles.
 
 ## Setup
-- Ensure [NodeJS](https://nodejs.org/en/) is installed (`node` and `npm` commands should be available globally).
-- Clone the repo to your machine.
+Install [GNU Stow](https://www.gnu.org/software/stow/).
+
+- Clone the repo to your machine to home repository.
 ```sh
-git clone https://github.com/nevinvalsaraj/dotfiles.git
-```
-- Download node dependencies for the bootstrapper.
-```node
-npm ci
+git clone https://github.com/nevinvalsaraj/dotfiles.git ~/.dotfiles
 ```
 
-## Installing Vim Configuration
-- Install vim.
-- Copy vim configuration files by running:
-```node
-npx grunt vim
-```
-- Launch vim (Ignore colorscheme load errors that appear).
-- Inside vim, run:
-```viml
-:PlugInstall
-```
-to download `vimplug` dependencies.
-- Restart vim.
-
-## Installing neovim Configuration
-- Install neovim.
-- Copy neovim configuration files by running:
-```node
-npx grunt neovim
+## Neovim Configuration
+- Symlink neovim configuration by running:
+```sh
+stow neovim
 ```
 - Launch neovim (Ignore colorscheme load errors that appear).
 - Inside neovim, run:
@@ -40,18 +22,17 @@ npx grunt neovim
 to download plugins.
 - Restart neovim.
 
-# Installing Zsh Configuration
-- Install zsh.
-- Copy zsh configuration files by running:
-```node
-npx grunt zsh
+# Zsh Configuration
+- Symlink zsh configuration files by running:
+```sh
+stow zsh
 ```
-- Run zsh and wait for plugins to get downloaded and imported.
+- Run zsh and wait for modules to download.
 
-# Installing Emacs configuration
-- Install emacs.
+# Emacs configuration
 - Copy emacs configuration file by running:
-```node
-npx grunt emacs
+```sh
+stow emacs
 ```
-- Run emacs and wait for plugins to get downloaded and imported.
+- Run emacs and wait for plugins to download.
+
