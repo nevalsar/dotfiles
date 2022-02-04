@@ -94,3 +94,11 @@
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown"))
+
+;; Add deft-mode
+;; https://jblevins.org/projects/deft/
+(use-package deft
+  :commands (deft)
+  :config (setq deft-directory "~/notes"
+                deft-recursive t))
+
