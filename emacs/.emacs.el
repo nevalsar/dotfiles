@@ -102,3 +102,9 @@
   :config (setq deft-directory "~/notes"
                 deft-recursive t))
 
+;; Add prescient.el for frecency-based completion
+;; https://github.com/raxod502/prescient.el
+(use-package ivy-prescient
+  :after counsel
+  :config
+  (ivy-prescient-mode 1))
