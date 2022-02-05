@@ -100,7 +100,9 @@
 (use-package deft
   :commands (deft)
   :config (setq deft-directory "~/notes"
-                deft-recursive t))
+                deft-recursive t
+                deft-default-extension "md"
+                deft-new-file-format "%Y_%m_%d-T%H%M"))
 
 ;; Add prescient.el for frecency-based completion
 ;; https://github.com/raxod502/prescient.el
