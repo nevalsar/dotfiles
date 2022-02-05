@@ -44,14 +44,25 @@
 ;; Configure color theme
 ;; https://github.com/hlissner/emacs-doom-themes
 (use-package doom-themes
+  :ensure t
   :config
-  (load-theme 'doom-molokai t))
+  (load-theme 'doom-tomorrow-night t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 
 ;; Configure doom-modeline status bar
 ;; https://github.com/seagle0128/doom-modeline
 (use-package doom-modeline
+  :ensure t
   :init (doom-modeline-mode t)
-  :custom ((doom-modeline-height 15)))
+  :custom
+  (doom-modeline-height 25)
+  (doom-modeline-icon t)
+  (doom-modeline-major-mode-icon t)
+  (doom-modeline-major-mode-color-icon t)
+  (doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (doom-modeline-buffer-state-icon t)
+  (doom-modeline-buffer-modification-icon t))
 
 ;; Magit git porcelain
 ;; https://github.com/magit/magit
