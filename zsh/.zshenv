@@ -61,4 +61,6 @@ source $HOME/.aliases.zsh
 # Set up pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 path=($PYENV_ROOT/bin "$path[@]")
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
