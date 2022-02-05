@@ -1,4 +1,8 @@
-# # Open files cleanly with default program
+# Safety aliases for file operations
+alias mv='mv -i'
+alias cp='cp -i'
+
+# Open files cleanly with default program
 function open () {
   nohup xdg-open "$*" > /dev/null 2>&1
 }
