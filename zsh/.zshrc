@@ -18,8 +18,13 @@ zstyle ':completion:*:ssh:*' hosts
 zstyle ':completion:*:slogin:*' hosts
 
 # https://starship.rs/
-znap eval starship 'starship init zsh'
-znap prompt
+if (( $+commands[starship] ))
+then
+    znap eval starship 'starship init zsh'
+    znap prompt
+else
+    znap prompt sindresorhus/pure
+fi
 
 # ajeetdsouza/zoxide
 znap eval zoxide 'zoxide init zsh'
