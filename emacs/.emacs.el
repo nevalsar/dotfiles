@@ -142,3 +142,12 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
+;; Load languages for org-babel
+;; https://orgmode.org/worg/org-contrib/babel/languages/index.html
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (shell . t)
+   (python . t)
+   ))
+
