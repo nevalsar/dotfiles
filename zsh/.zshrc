@@ -4,6 +4,7 @@
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
 
+# Load znap
 source ~/.znap/zsh-snap/znap.zsh
 
 # Enable menu-driven completion
@@ -31,13 +32,21 @@ znap eval trapd00r/LS_COLORS "$( whence -a dircolors gdircolors ) -b LS_COLORS"
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-completions
 znap source esc/conda-zsh-completion
-znap source DarrinTisdale/zsh-aliases-exa
+
+# Install exa aliases only if exa is installed
+if (( $+commands[exa] ))
+then
+    znap source DarrinTisdale/zsh-aliases-exa
+fi
 ### End install plugins
 
 ### Configure completions
 #
-znap fpath _rustup 'rustup completions zsh'
-znap fpath _cargo 'rustup completions zsh cargo'
+if (( $+commands[rustup] ))
+then
+    znap fpath _rustup 'rustup completions zsh'
+    znap fpath _cargo 'rustup completions zsh cargo'
+fi
 ### End configure completions
 
 ### Functions
@@ -92,7 +101,8 @@ unset __conda_setup
 ### End configure conda
 
 ### Configure junegunn/fzf
-
+# https://github.com/junegunn/fzf
+#
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd -t d . $HOME"
@@ -100,7 +110,6 @@ export FZF_ALT_C_COMMAND="fd -t d . $HOME"
 # Press CTRL-Y to copy the line to clipboard and aborts fzf
 export FZF_DEFAULT_OPTS="--bind 'ctrl-w:execute-silent(echo {} | xclip -i -sel clip)+abort'"
 
-#
 # Source key binding and completion
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
