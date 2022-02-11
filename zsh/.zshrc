@@ -1,3 +1,9 @@
+# Download znap if not present
+# https://github.com/marlonrichert/zsh-snap
+[[ -f ~/.znap/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
+
 source ~/.znap/zsh-snap/znap.zsh
 
 # Enable menu-driven completion
@@ -11,7 +17,7 @@ zstyle ':completion:*:ssh:*' hosts
 zstyle ':completion:*:slogin:*' hosts
 
 # https://starship.rs/
-znap eval starship 'starship init zsh --print-full-init'
+znap eval starship 'starship init zsh'
 znap prompt
 
 # ajeetdsouza/zoxide
@@ -143,3 +149,4 @@ export EDITOR='emacsclient -t'
 # Fix comment highlight color since kitty doesn't interpret bold colors as bright
 # colors (zsh comments are set to bold black by zsh-syntax-highlighting plugin)
 ZSH_HIGHLIGHT_STYLES[comment]=fg=245
+
