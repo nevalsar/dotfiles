@@ -1,5 +1,5 @@
-# https://zsh.sourceforge.io/Contrib/startup/users/debbiep/dot.zshenv
 # Function to remove non-existent directories from array.
+# https://zsh.sourceforge.io/Contrib/startup/users/debbiep/dot.zshenv
 rationalize-path () {
     local element
     local build
@@ -18,6 +18,7 @@ rationalize-path () {
     '"$1"'=( "$build[@]" )
     '
 }
+# End function
 
 # Set up additional paths
 path+=(
@@ -55,25 +56,26 @@ then
 fi
 
 # Set up linuxbrew
+
+path+=(
+    ~/.linuxbrew/bin
+    ~/.linuxbrew/sbin
+)
+rationalize-path path
+typeset -U path
+
+infopath+=(
+    ~/.linuxbrew/share/info
+)
+rationalize-path infopath
+typeset -U infopath
+
 if (( $+commands[brew]  ))
 then
     export HOMEBREW_PREFIX=~/.linuxbrew
     export HOMEBREW_CELLAR=~/.linuxbrew/Cellar
     export HOMEBREW_REPOSITORY=~/.linuxbrew/Homebrew
     export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
-
-    path+=(
-        ~/.linuxbrew/bin
-        ~/.linuxbrew/sbin
-    )
-    rationalize-path path
-    typeset -U path
-
-    infopath+=(
-        ~/.linuxbrew/share/info
-    )
-    rationalize-path infopath
-    typeset -U infopath
 fi
 
 # Set up cuda
