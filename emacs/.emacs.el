@@ -156,3 +156,22 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
+
+;; page-break-lines
+;; https://github.com/purcell/page-break-lines
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
+
+;; emacs-dashboard
+;; https://github.com/emacs-dashboard/emacs-dashboard
+(use-package dashboard
+  :ensure t
+  :init
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-banner-logo-title "Emacs Dashboard")
+  (setq dashboard-page-separator "\n\n\f\n\n")
+  :config
+  (dashboard-setup-startup-hook))
+
