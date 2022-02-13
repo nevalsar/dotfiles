@@ -151,6 +151,12 @@
    (python . t)
    ))
 
+;; org-bullets
+;; https://github.com/sabof/org-bullets
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 ;; Add undo-tree-mode
 ;; https://elpa.gnu.org/packages/undo-tree.html
 (use-package undo-tree
