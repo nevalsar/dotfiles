@@ -151,3 +151,8 @@
    (python . t)
    ))
 
+;; Add undo-tree-mode
+;; https://elpa.gnu.org/packages/undo-tree.html
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
