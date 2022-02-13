@@ -181,3 +181,11 @@
   :config
   (dashboard-setup-startup-hook))
 
+;; diff-hl - Provides git gutter
+;; https://github.com/dgutov/diff-hl
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
