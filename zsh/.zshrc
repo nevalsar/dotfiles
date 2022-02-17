@@ -21,6 +21,8 @@ zstyle ':completion:*:slogin:*' hosts
 if (( $+commands[starship] ))
 then
     znap eval starship 'starship init zsh'
+    #znap prompt starship
+    prompt_starship_precmd
     znap prompt
 else
     znap prompt sindresorhus/pure
