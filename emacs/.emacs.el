@@ -75,30 +75,60 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 
-;; Ivy, Counsel and Swiper
-;; https://github.com/abo-abo/swiper
-(use-package ivy
-  :diminish
-  :config
-  (ivy-mode)
-  (setq ivy-use-virtual-buffers t
-    ivy-count-format "(%d/%d) "))
+;; Add vertico completion UI
+;; https://github.com/minad/vertico
+(use-package vertico
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode)
+  )
 
-(use-package counsel
-  :after ivy
-  :config (counsel-mode))
+;; Add orderless for orderless completion
+;; https://github.com/oantolin/orderless
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
-;; Ivy-rich: Rich output from Ivy and Counsel
-;; https://github.com/Yevgnen/ivy-rich
-(use-package ivy-rich
-  :hook (counsel-mode . ivy-rich-mode)
-  :config
-  (setq ivy-rich-parse-remote-buffer nil))
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; Alternatively try `consult-completing-read-multiple'.
+  (defun crm-indicator (args)
+    (cons (concat "[CRM] " (car args)) (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-;; Use Ivy to search and diff files
-;; https://github.com/redguardtoo/find-file-in-project
-(use-package find-file-in-project)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
+;; End set up vertico
+
+;; Persist history over Emacs restarts.
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;; Add marginalia for annotations to minibuffer completions
+;; https://github.com/minad/marginalia
+(use-package marginalia
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
 
 ;; Add markdown support
 ;; https://github.com/jrblevin/markdown-mode
@@ -114,13 +144,6 @@
                 deft-recursive t
                 deft-default-extension "md"
                 deft-new-file-format "%Y_%m_%d-T%H%M"))
-
-;; Add prescient.el for frecency-based completion
-;; https://github.com/raxod502/prescient.el
-(use-package ivy-prescient
-  :after counsel
-  :config
-  (ivy-prescient-mode 1))
 
 ;; Rename current buffer and visited file in-place
 ;; https://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
