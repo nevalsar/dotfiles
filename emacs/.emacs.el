@@ -37,6 +37,8 @@
 
 ;; Set up use-package integration with straight.el
 (straight-use-package 'use-package)
+;; Ensure packages are installed, download if misisng
+;; Equivalent to setting `:ensure t` for all packages
 (setq straight-use-package-by-default t)
 
 ;; --------------------------------------------------
@@ -44,7 +46,6 @@
 ;; Configure color theme
 ;; https://github.com/hlissner/emacs-doom-themes
 (use-package doom-themes
-  :ensure t
   :config
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-visual-bell-config)
@@ -53,7 +54,6 @@
 ;; Configure doom-modeline status bar
 ;; https://github.com/seagle0128/doom-modeline
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode t)
   :custom
   (doom-modeline-height 25)
@@ -172,7 +172,6 @@
 ;; emacs-dashboard
 ;; https://github.com/emacs-dashboard/emacs-dashboard
 (use-package dashboard
-  :ensure t
   :init
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-startup-banner 'logo)
