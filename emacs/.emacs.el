@@ -142,6 +142,10 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
+;; Install latest version of org
+;; https://elpa.gnu.org/packages/org.html
+(use-package org)
+
 ;; Load languages for org-babel
 ;; https://orgmode.org/worg/org-contrib/babel/languages/index.html
 (org-babel-do-load-languages
