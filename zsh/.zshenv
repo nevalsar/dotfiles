@@ -83,11 +83,10 @@ path=(/usr/local/cuda-11.6/bin "$path[@]")
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Set up CoppeliaSim
-if [ -f ~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04 ]
+if [ -d ~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04 ]
 then
     export COPPELIASIM_ROOT_DIR=~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04
 fi
 
 # Source aliases
-source $HOME/.aliases.zsh
-
+source ~/.aliases.zsh
