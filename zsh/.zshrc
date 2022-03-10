@@ -107,9 +107,9 @@ unset __conda_setup
 ### Configure junegunn/fzf
 # https://github.com/junegunn/fzf
 #
-export FZF_DEFAULT_COMMAND="fd . $HOME"
+export FZF_DEFAULT_COMMAND="fd -H ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+export FZF_ALT_C_COMMAND="fd -H -t d . $HOME"
 
 # Press CTRL-Y to copy the line to clipboard and aborts fzf
 export FZF_DEFAULT_OPTS="--bind 'ctrl-w:execute-silent(echo {} | xclip -i -sel clip)+abort'"
