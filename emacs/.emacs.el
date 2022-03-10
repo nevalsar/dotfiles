@@ -178,11 +178,16 @@
    (python . t)
    ))
 
-;; org-bullets
+;; org-superstar for pretty bullets in org mode
 ;; https://github.com/sabof/org-bullets
-(use-package org-bullets
+(use-package org-superstar
   :after org
-  :hook (org-mode . org-bullets-mode 1))
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
 
 ;; Add undo-tree-mode
 ;; https://elpa.gnu.org/packages/undo-tree.html
