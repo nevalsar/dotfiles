@@ -3,6 +3,10 @@
 (tool-bar-mode -1)			; hide tool bar
 (column-number-mode)			; show column numbers
 (global-display-line-numbers-mode)	; show line numbers
+(setq-default line-spacing 2)
+
+; use a central backup folder
+(setq backup-directory-alist `(("." . "~/.emacs-saves")))
 
 ;; Configure scroll behaviour
 (setq scroll-margin 3
@@ -134,16 +138,7 @@
 ;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown"))
-
-;; Add deft-mode
-;; https://jblevins.org/projects/deft/
-(use-package deft
-  :commands (deft)
-  :config (setq deft-directory "~/notes"
-                deft-recursive t
-                deft-default-extension "md"
-                deft-new-file-format "%Y_%m_%d-T%H%M"))
+  :init (setq markdown-command "marked"))
 
 ;; Rename current buffer and visited file in-place
 ;; https://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
@@ -176,7 +171,34 @@
  '(
    (shell . t)
    (python . t)
-   ))
+  ))
+
+;; Org-mode
+;; (setq org-hide-emphasis-markers t)
+;; Improve org mode looks
+(setq org-startup-indented t
+  org-pretty-entities t
+  org-hide-emphasis-markers t
+  org-startup-with-inline-images t
+  org-image-actual-width '(300))
+
+;; Show hidden emphasis markers
+;; Render latex characters
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+
+;; Increase size of LaTeX fragment previews
+  (plist-put org-format-latex-options :scale 4)
+
+;; Set default, fixed and variabel pitch fonts
+;; Use M-x menu-set-font to view available fonts
+(use-package mixed-pitch
+  :hook
+  (text-mode . mixed-pitch-mode)
+  :config
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140)
+  (set-face-attribute 'fixed-pitch nil :font "SauceCodePro Nerd Font")
+  (set-face-attribute 'variable-pitch nil :font "ETBembo"))
 
 ;; org-superstar for pretty bullets in org mode
 ;; https://github.com/sabof/org-bullets
@@ -188,6 +210,14 @@
   (org-superstar-remove-leading-stars t)
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+;; Add deft-mode
+;; https://jblevins.org/projects/deft/
+(use-package deft
+  :commands (deft)
+  :config (setq deft-directory "~/notes"
+                deft-recursive t
+                deft-default-extension "md"
+                deft-new-file-format "%Y_%m_%d-T%H%M"))
 
 ;; Add undo-tree-mode
 ;; https://elpa.gnu.org/packages/undo-tree.html
