@@ -60,8 +60,12 @@ then
 fi
 
 # Set up linuxbrew
-if [ -d "$HOME/.linuxbrew" ]
+if [[ $(uname -s) -eq "Darwin" ]]
 then
+    path+=(
+        ~/homebrew/bin
+    )
+else
     path+=(
         ~/.linuxbrew/bin
         ~/.linuxbrew/sbin
@@ -75,7 +79,7 @@ then
     rationalize-path infopath
     typeset -U infopath
 
-    if (( $+commands[brew]  ))
+    if (( $+commands[brew] ))
     then
         export HOMEBREW_PREFIX=~/.linuxbrew
         export HOMEBREW_CELLAR=~/.linuxbrew/Cellar
