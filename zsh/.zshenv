@@ -60,7 +60,7 @@ then
 fi
 
 # Set up linuxbrew
-if [[ $(uname -s) -eq "Darwin" ]]
+if [ $(uname -s) = "Darwin" ]
 then
     path+=(
         ~/homebrew/bin
