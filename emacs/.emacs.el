@@ -3,7 +3,7 @@
 (tool-bar-mode -1)			; hide tool bar
 (column-number-mode)			; show column numbers
 (global-display-line-numbers-mode)	; show line numbers
-(setq-default line-spacing 2)
+;; (setq-default line-spacing 2)
 
 ; use a central backup folder
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
@@ -39,6 +39,8 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; Prevent package.el loading packages prior to init-file loading
+(setq package-enable-at-startup nil)  
 ;; Set up use-package integration with straight.el
 (straight-use-package 'use-package)
 ;; Ensure packages are installed, download if misisng
@@ -173,42 +175,70 @@
    (python . t)
   ))
 
-;; Org-mode
-;; (setq org-hide-emphasis-markers t)
-;; Improve org mode looks
-(setq org-startup-indented t
-  org-pretty-entities t
-  org-hide-emphasis-markers t
-  org-startup-with-inline-images t
-  org-image-actual-width '(300))
+;; ;; Org-mode
+;; ;; (setq org-hide-emphasis-markers t)
+;; ;; Improve org mode looks
+;; (setq org-startup-indented t
+;;   org-pretty-entities t
+;;   org-hide-emphasis-markers t
+;;   org-startup-with-inline-images t
+;;   org-image-actual-width '(300))
 
-;; Show hidden emphasis markers
-;; Render latex characters
-(use-package org-appear
-  :hook (org-mode . org-appear-mode))
+;; ;; Show hidden emphasis markers
+;; ;; Render latex characters
+;; (use-package org-appear
+;;   :hook (org-mode . org-appear-mode))
 
-;; Increase size of LaTeX fragment previews
-  (plist-put org-format-latex-options :scale 4)
+;; ;; Increase size of LaTeX fragment previews
+;;   (plist-put org-format-latex-options :scale 4)
 
-;; Set default, fixed and variabel pitch fonts
-;; Use M-x menu-set-font to view available fonts
-(use-package mixed-pitch
+;; ;; Set default, fixed and variabel pitch fonts
+;; ;; Use M-x menu-set-font to view available fonts
+;; (use-package mixed-pitch
+;;   :hook
+;;   (text-mode . mixed-pitch-mode)
+;;   :config
+;;   (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140)
+;;   (set-face-attribute 'fixed-pitch nil :font "SauceCodePro Nerd Font")
+;;   (set-face-attribute 'variable-pitch nil :font "ETBembo"))
+
+;; ;; org-superstar for pretty bullets in org mode
+;; ;; https://github.com/sabof/org-bullets
+;; (use-package org-superstar
+;;   :after org
+;;   :config
+;;   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+;;   :custom
+;;   (org-superstar-remove-leading-stars t)
+;;   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+
+(setq
+ ;; Edit settings
+ org-auto-align-tags nil
+ org-tags-column 0
+ org-catch-invisible-edits 'show-and-error
+ org-special-ctrl-a/e t
+ org-insert-heading-respect-content t
+
+ ;; Org styling, hide markup etc.
+ org-hide-emphasis-markers t
+ org-pretty-entities t
+ org-ellipsis "…"
+
+ ;; Agenda styling
+ org-agenda-block-separator ?─
+ org-agenda-time-grid
+ '((daily today require-timed)
+   (800 1000 1200 1400 1600 1800 2000)
+   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+ org-agenda-current-time-string
+ "⭠ now ─────────────────────────────────────────────────")
+
+(use-package org-modern
   :hook
-  (text-mode . mixed-pitch-mode)
-  :config
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140)
-  (set-face-attribute 'fixed-pitch nil :font "SauceCodePro Nerd Font")
-  (set-face-attribute 'variable-pitch nil :font "ETBembo"))
-
-;; org-superstar for pretty bullets in org mode
-;; https://github.com/sabof/org-bullets
-(use-package org-superstar
-  :after org
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-  :custom
-  (org-superstar-remove-leading-stars t)
-  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda))
 
 ;; Add deft-mode
 ;; https://jblevins.org/projects/deft/

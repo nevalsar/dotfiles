@@ -21,7 +21,7 @@ zstyle ':completion:*:slogin:*' hosts
 if (( $+commands[starship] ))
 then
     znap eval starship 'starship init zsh'
-    #znap prompt starship
+    # znap prompt starship
     prompt_starship_precmd
     znap prompt
 else
@@ -163,3 +163,7 @@ export EDITOR='emacsclient -t'
 # colors (zsh comments are set to bold black by zsh-syntax-highlighting plugin)
 ZSH_HIGHLIGHT_STYLES[comment]=fg=245
 
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -1,2 +1,10 @@
 node_modules/
-anaconda3/envs/
+anaconda3/
+build/
+devel/
+.steam/
+.vscode/
+.git/
+.linuxbrew/
+.pyenv/
+.cache/

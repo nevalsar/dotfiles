@@ -88,5 +88,12 @@ then
     export COPPELIASIM_ROOT_DIR=~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04
 fi
 
+# Set up NPM
+path=(~/.npm-global "$path[@]")
+
+# Set up NVM
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # Source aliases
 source ~/.aliases.zsh
