@@ -63,7 +63,7 @@ function source-ros-noetic() {
     source /opt/ros/noetic/setup.zsh
 }
 
-# Source ROS Foxy
+# Source ROS Galactic
 function source-ros-galactic() {
     source /opt/ros/galactic/setup.zsh
     export ROS_DOMAIN_ID=42
@@ -115,8 +115,13 @@ export FZF_ALT_C_COMMAND="fd -H -t d . $HOME"
 export FZF_DEFAULT_OPTS="--bind 'ctrl-w:execute-silent(echo {} | xclip -i -sel clip)+abort'"
 
 # Source key binding and completion
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+if [ -d /usr/share/doc/fzf/ ]
+then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
+else
+    source $HOME/.fzf.zsh
+fi
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='border --info=inline'
@@ -126,27 +131,27 @@ export FZF_COMPLETION_OPTS='border --info=inline'
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-fd --hidden --follow --exclude ".git" . "$1"
+    fd --hidden --follow --exclude ".git" . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-fd --type d --hidden --follow --exclude ".git" . "$1"
+    fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
-local command=$1
-shift
+    local command=$1
+    shift
 
-case "$command" in
-cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
-ssh)          fzf "$@" --preview 'dig {}' ;;
-*)            fzf "$@" ;;
-esac
+    case "$command" in
+        cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+        export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+        ssh)          fzf "$@" --preview 'dig {}' ;;
+        *)            fzf "$@" ;;
+    esac
 }
 ### End configure junegunn/fzf
 
@@ -162,8 +167,3 @@ export EDITOR='emacsclient -t'
 # Fix comment highlight color since kitty doesn't interpret bold colors as bright
 # colors (zsh comments are set to bold black by zsh-syntax-highlighting plugin)
 ZSH_HIGHLIGHT_STYLES[comment]=fg=245
-
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -40,7 +40,10 @@ manpath+=(
 rationalize-path manpath
 typeset -U manpath
 
-if [ -f $HOME/.cargo/env ]
+## Set up tools
+#
+
+if [ -f "$HOME/.cargo/env" ]
 then
     source "$HOME/.cargo/env"
 fi
@@ -53,47 +56,71 @@ then
     eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi
 
 # Set up linuxbrew
-
-path+=(
-    ~/.linuxbrew/bin
-    ~/.linuxbrew/sbin
-)
-rationalize-path path
-typeset -U path
-
-infopath+=(
-    ~/.linuxbrew/share/info
-)
-rationalize-path infopath
-typeset -U infopath
-
-if (( $+commands[brew]  ))
+if [ -d "$HOME/.linuxbrew" ]
 then
-    export HOMEBREW_PREFIX=~/.linuxbrew
-    export HOMEBREW_CELLAR=~/.linuxbrew/Cellar
-    export HOMEBREW_REPOSITORY=~/.linuxbrew/Homebrew
-    export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
+    path+=(
+        ~/.linuxbrew/bin
+        ~/.linuxbrew/sbin
+    )
+    rationalize-path path
+    typeset -U path
+
+    infopath+=(
+        ~/.linuxbrew/share/info
+    )
+    rationalize-path infopath
+    typeset -U infopath
+
+    if (( $+commands[brew]  ))
+    then
+        export HOMEBREW_PREFIX=~/.linuxbrew
+        export HOMEBREW_CELLAR=~/.linuxbrew/Cellar
+        export HOMEBREW_REPOSITORY=~/.linuxbrew/Homebrew
+        export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
+    fi
 fi
 
 # Set up cuda
-path=(/usr/local/cuda-11.6/bin "$path[@]")
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+if [ -d "/usr/local/cuda-11.6/bin" ]
+then
+    path=(/usr/local/cuda-11.6/bin "$path[@]")
+fi
 
 # Set up CoppeliaSim
-if [ -d ~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04 ]
+if [ -d "~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04" ]
 then
     export COPPELIASIM_ROOT_DIR=~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04
 fi
 
 # Set up NPM
-path=(~/.npm-global "$path[@]")
+if [ -d "$HOME/.npm-global" ]
+then
+    path=(~/.npm-global "$path[@]")
+fi
 
 # Set up NVM
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+if [ -d "$HOME/.config/nvm" ]
+then
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
+
+# Set up NVM
+if [ -d "$HOME/.config/nvm" ]
+then
+    export NVM_DIR="$HOME/.config/nvm"
+    # This loads nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    # This loads nvm bash_completion
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
+
+#
+## End load tools
 
 # Source aliases
 source ~/.aliases.zsh
