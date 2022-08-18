@@ -280,3 +280,11 @@
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
+
+;; Configure clang-format
+(when (file-exists-p "/usr/share/emacs/site-lisp/clang-format-12/clang-format.el")
+  (progn
+    (load "/usr/share/emacs/site-lisp/clang-format-12/clang-format.el")
+    (global-set-key [C-M-tab] 'clang-format-region)
+    (require 'clang-format)
+    (setq clang-format-style "file")))
