@@ -128,3 +128,16 @@ fi
 
 # Source aliases
 source ~/.aliases.zsh
+
+
+# Set up golang
+path+=(
+    /usr/local/go/bin
+)
+export GOROOT=/usr/local/go
+
+# Override TERM variable set by kitty
+if [[ "$TERM" == "xterm-kitty" ]]; then
+    TERM=xterm-256color
+fi
+
