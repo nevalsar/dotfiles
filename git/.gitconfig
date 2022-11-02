@@ -14,3 +14,16 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[user]
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCnIcOtt1gn5HwEOUGM8Xw7j1JyzymTU3oTPj+kDsfj
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+	allowedSignersFile = /home/nevin/.ssh/allowed_signers
+
+[commit]
+  gpgsign = true
