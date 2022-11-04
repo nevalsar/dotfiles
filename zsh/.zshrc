@@ -84,6 +84,10 @@ set-konsole-tab-title ()
     set-konsole-tab-title-type "$1" && set-konsole-tab-title-type "$1" 1
 }
 
+function launch {
+    nohup $1 >/dev/null 2>/dev/null & disown;
+}
+
 ### End functions
 
 ### Configure conda
