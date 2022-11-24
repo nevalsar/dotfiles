@@ -1,6 +1,5 @@
 # Alternate tools
 alias htop=btop
-alias cat=bat
 
 # Safety aliases for file operations
 alias mv='mv -i'
@@ -11,15 +10,16 @@ function open () {
   xdg-open "$*" > /dev/null 2>&1
 }
 
-# alias for using emacs when running in server mode
+# aliases for Emacs in server mode
 alias em='emacsclient --tty'
 alias ema='emacsclient --create-frame --no-wait'
 
 # alias for kubectl via minikube
 alias kubectl="minikube kubectl --"
 
+################################################################################
 # Git aliases
-#
+################################################################################
 
 # Branch (b)
 alias gb='git branch'
@@ -52,3 +52,36 @@ alias gl='git log --topo-order'
 alias glc='git shortlog --summary --numbered'
 alias glS='git log --show-signature'
 
+################################################################################
+
+### Functions
+#
+# Source ROS Noetic
+function source-ros-noetic() {
+    source /opt/ros/noetic/setup.zsh
+}
+
+# Source ROS Galactic
+function source-ros-galactic() {
+    source /opt/ros/galactic/setup.zsh
+    export ROS_DOMAIN_ID=42
+}
+
+# Set tab titles in Konsole
+set-konsole-tab-title-type ()
+{
+    local _title="$1"
+    local _type=${2:-0}
+    [[ -z "${_title}" ]]               && return 1
+    [[ -z "${KONSOLE_DBUS_SERVICE}" ]] && return 1
+    [[ -z "${KONSOLE_DBUS_SESSION}" ]] && return 1
+    qdbus >/dev/null "${KONSOLE_DBUS_SERVICE}" "${KONSOLE_DBUS_SESSION}" setTabTitleFormat "${_type}" "${_title}"
+}
+set-konsole-tab-title ()
+{
+    set-konsole-tab-title-type "$1" && set-konsole-tab-title-type "$1" 1
+}
+
+function launch {
+    nohup $1 >/dev/null 2>/dev/null & disown;
+}
