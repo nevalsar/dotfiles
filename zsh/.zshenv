@@ -49,13 +49,10 @@ then
 fi
 
 # Set up pyenv
-if (( $+commands[pyenv] ))
+if [ -d "$HOME/.pyenv" ]
 then
     export PYENV_ROOT="$HOME/.pyenv"
     path=($PYENV_ROOT/bin "$path[@]")
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi
 

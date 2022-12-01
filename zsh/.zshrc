@@ -139,3 +139,11 @@ export EDITOR='emacsclient -t'
 # Fix comment highlight color since kitty doesn't interpret bold colors as bright
 # colors (zsh comments are set to bold black by zsh-syntax-highlighting plugin)
 ZSH_HIGHLIGHT_STYLES[comment]=fg=245
+
+# Set up pyenv
+if (( $+commands[pyenv] ))
+then
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
