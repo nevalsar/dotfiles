@@ -147,3 +147,10 @@ then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
+
+# Set up asdf
+if (( $+commands[brew] ))
+then
+    . $(brew --prefix asdf)/libexec/asdf.sh
+fi
+

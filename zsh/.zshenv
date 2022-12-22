@@ -56,7 +56,7 @@ then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi
 
-# Set up linuxbrew
+# Set up Homebrew
 if [ $(uname -s) = "Darwin" ]
 then
     path+=(
@@ -75,6 +75,9 @@ else
     )
     rationalize-path infopath
     typeset -U infopath
+
+    fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+    autoload -Uz compinit && compinit
 
     if (( $+commands[brew] ))
     then
