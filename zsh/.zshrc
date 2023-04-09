@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Download znap if not present
 # https://github.com/marlonrichert/zsh-snap
 [[ -f ~/.znap/zsh-snap/znap.zsh ]] ||
@@ -17,16 +24,21 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:ssh:*' hosts
 zstyle ':completion:*:slogin:*' hosts
 
-# https://starship.rs/
-if (( $+commands[starship] ))
-then
-    znap eval starship 'starship init zsh'
-    # znap prompt starship
-    prompt_starship_precmd
-    znap prompt
-else
-    znap prompt sindresorhus/pure
-fi
+# # https://starship.rs/
+# if (( $+commands[starship] ))
+# then
+#     znap eval starship 'starship init zsh'
+#     # znap prompt starship
+#     prompt_starship_precmd
+#     znap prompt
+# else
+#     znap prompt sindresorhus/pure
+# fi
+
+# romkatv/powerlevel10k
+znap prompt romkatv/powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ajeetdsouza/zoxide
 znap eval zoxide 'zoxide init zsh'
@@ -153,4 +165,3 @@ if (( $+commands[brew] ))
 then
     . $(brew --prefix asdf)/libexec/asdf.sh
 fi
-
