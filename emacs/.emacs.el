@@ -5,8 +5,11 @@
 (global-display-line-numbers-mode)	; show line numbers
 ;; (setq-default line-spacing 2)
 
-; use a central backup folder
-(setq backup-directory-alist `(("." . "~/.emacs-saves")))
+;; use a central backup folder
+(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+
+;; use a central undo tree folder
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-trees")))
 
 ;; Configure scroll behaviour
 (setq scroll-margin 3
@@ -288,3 +291,8 @@
     (global-set-key [C-M-tab] 'clang-format-region)
     (require 'clang-format)
     (setq clang-format-style "file")))
+
+;; docker
+;;
+(use-package docker-compose-mode)
+(use-package dockerfile-mode)
