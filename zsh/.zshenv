@@ -1,143 +1,111 @@
-# Function to remove non-existent directories from array.
-# https://zsh.sourceforge.io/Contrib/startup/users/debbiep/dot.zshenv
-rationalize-path () {
-    local element
-    local build
-    build=()
-    # Evil quoting to survive an eval and to make sure that
-    # this works even with variables containing IFS characters, if I'm
-    # crazy enough to setopt shwordsplit.
-    eval '
-    foreach element in "$'"$1"'[@]"
-    do
-        if [[ -d "$element" ]]
-        then
-            build=("$build[@]" "$element")
-        fi
-    done
-    '"$1"'=( "$build[@]" )
-    '
-}
-# End function
+# set up default editors
+export VISUAL='emacsclient'
+export EDITOR='emacsclient'
+export SUDO_EDITOR="emacsclient"
 
 # Set up additional paths
 path+=(
     ~/.local/bin
 )
 
-rationalize-path path
-# only unique entries
-typeset -U path
-
-# Set INFOPATH
+# set infopath
 typeset -T INFOPATH infopath
 
-# Set MANPATH
+# set manpath
 typeset -T MANPATH manpath
-manpath+=(
-    ~/.linuxbrew/share/man
-)
-rationalize-path manpath
-typeset -U manpath
-
-## Set up tools
-#
-
-if [ -f "$HOME/.cargo/env" ]
-then
-    source "$HOME/.cargo/env"
-fi
-
-# Set up pyenv
-if [ -d "$HOME/.pyenv" ]
-then
-    export PYENV_ROOT="$HOME/.pyenv"
-    path=($PYENV_ROOT/bin "$path[@]")
-    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-fi
-
-# Set up Homebrew
-if [ $(uname -s) = "Darwin" ]
-then
-    path+=(
-        ~/homebrew/bin
-    )
-else
-    path+=(
-        ~/.linuxbrew/bin
-        ~/.linuxbrew/sbin
-    )
-    rationalize-path path
-    typeset -U path
-
-    infopath+=(
-        ~/.linuxbrew/share/info
-    )
-    rationalize-path infopath
-    typeset -U infopath
-
-    fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-    autoload -Uz compinit && compinit
-
-    if (( $+commands[brew] ))
-    then
-        export HOMEBREW_PREFIX=~/.linuxbrew
-        export HOMEBREW_CELLAR=~/.linuxbrew/Cellar
-        export HOMEBREW_REPOSITORY=~/.linuxbrew/Homebrew
-        export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
-    fi
-fi
-
-# Set up cuda
-if [ -d "/usr/local/cuda-11.6/bin" ]
-then
-    path=(/usr/local/cuda-11.6/bin "$path[@]")
-fi
-
-# Set up CoppeliaSim
-if [ -d "~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04" ]
-then
-    export COPPELIASIM_ROOT_DIR=~/tools/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04
-fi
-
-# Set up NPM
-if [ -d "$HOME/.npm-global" ]
-then
-    path=(~/.npm-global "$path[@]")
-fi
-
-# Set up NVM
-if [ -d "$HOME/.config/nvm" ]
-then
-    export NVM_DIR="$HOME/.config/nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-fi
-
-# Set up NVM
-if [ -d "$HOME/.config/nvm" ]
-then
-    export NVM_DIR="$HOME/.config/nvm"
-    # This loads nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    # This loads nvm bash_completion
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-fi
-
-#
-## End load tools
-
-# Source aliases
-source ~/.aliases.zsh
-
-
-# Set up golang
-path+=(
-    /usr/local/go/bin
-)
-export GOROOT=/usr/local/go
 
 # Override TERM variable set by kitty
 if [[ "$TERM" == "xterm-kitty" ]]; then
     TERM=xterm-256color
 fi
+
+# ALIASES ######################################################################
+
+# Alternate tools
+alias htop=btop
+
+# Safety aliases for file operations
+alias mv='mv -i'
+alias cp='cp -i'
+
+# aliases for Emacs in server mode
+alias em='emacsclient --tty'
+alias ema='emacsclient --create-frame --no-wait'
+
+# alias for kubectl via minikube
+alias kubectl="minikube kubectl --"
+
+# Git aliases ------------------------------------------------------------------
+
+# Branch (b)
+alias gb='git branch'
+alias gba='git branch --all --verbose'
+
+# Commit (c)
+alias gc='git commit --verbose'
+alias gco='git checkout'
+
+# Working copy (ws)
+alias gws='git status --short'
+alias gwS='git status'
+alias gwd='git diff --no-ext-diff'
+alias gwdD='git diff --no-ext-diff --word-diff'
+
+# Remote (R)
+alias gRu='git remote update'
+
+# Stash (s)
+alias gs='git stash'
+alias gsa='git stash apply'
+
+# Index (i)
+alias gia='git add'
+alias gid='git diff --no-ext-diff --cached'
+alias giD='git diff --no-ext-diff --cached --word-diff'
+
+# Log (l)
+alias gl='git log --topo-order'
+alias glc='git shortlog --summary --numbered'
+alias glS='git log --show-signature'
+
+# End git aliases --------------------------------------------------------------
+
+# Functions ####################################################################
+
+# Source ROS Noetic
+function source-ros-noetic() {
+    source /opt/ros/noetic/setup.zsh
+}
+
+# Source ROS Galactic
+function source-ros-galactic() {
+    source /opt/ros/galactic/setup.zsh
+    export ROS_DOMAIN_ID=42
+}
+
+# Set tab titles in Konsole
+set-konsole-tab-title-type ()
+{
+    local _title="$1"
+    local _type=${2:-0}
+    [[ -z "${_title}" ]]               && return 1
+    [[ -z "${KONSOLE_DBUS_SERVICE}" ]] && return 1
+    [[ -z "${KONSOLE_DBUS_SESSION}" ]] && return 1
+    qdbus >/dev/null "${KONSOLE_DBUS_SERVICE}" "${KONSOLE_DBUS_SESSION}" setTabTitleFormat "${_type}" "${_title}"
+}
+set-konsole-tab-title ()
+{
+    set-konsole-tab-title-type "$1" && set-konsole-tab-title-type "$1" 1
+}
+
+function launch {
+    nohup $1 >/dev/null 2>/dev/null & disown;
+}
+
+# Open files cleanly with default program
+function open () {
+  xdg-open "$*" > /dev/null 2>&1
+}
+
+################################################################################
 
