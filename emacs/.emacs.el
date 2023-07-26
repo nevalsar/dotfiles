@@ -282,9 +282,9 @@
 
 
 ;; Configure clang-format
-(when (file-exists-p "/usr/share/emacs/site-lisp/clang-format-12/clang-format.el")
+(when (file-exists-p "/usr/share/emacs/site-lisp/clang-format/clang-format.el")
   (progn
-    (load "/usr/share/emacs/site-lisp/clang-format-12/clang-format.el")
+    (load "/usr/share/emacs/site-lisp/clang-format/clang-format.el")
     (global-set-key [C-M-tab] 'clang-format-region)
     (require 'clang-format)
     (setq clang-format-style "file")))
