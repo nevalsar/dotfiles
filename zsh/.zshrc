@@ -200,38 +200,7 @@ fi
 # ------------------------------------------------------------------------------
 
 # Set up Homebrew --------------------------------------------------------------
-if [ $(uname -s) = "Darwin" ]
-then
-    path+=(
-        ~/homebrew/bin
-    )
-else
-    path+=(
-        ~/.linuxbrew/bin
-        ~/.linuxbrew/sbin
-    )
-    typeset -U path
-
-    infopath+=(
-        ~/.linuxbrew/share/info
-    )
-    typeset -U infopath
-
-    fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-    autoload -Uz compinit && compinit
-
-    if (( $+commands[brew] ))
-    then
-        export HOMEBREW_PREFIX=~/.linuxbrew
-        export HOMEBREW_CELLAR=~/.linuxbrew/Cellar
-        export HOMEBREW_REPOSITORY=~/.linuxbrew/Homebrew
-        export HOMEBREW_SHELLENV_PREFIX=~/.linuxbrew
-    fi
-
-    manpath+=(
-        ~/.linuxbrew/share/man
-    )
-fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # ------------------------------------------------------------------------------
 
 # Set up cargo -----------------------------------------------------------------
