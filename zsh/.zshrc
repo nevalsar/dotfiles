@@ -82,7 +82,7 @@ then
     source /usr/share/doc/fzf/examples/key-bindings.zsh
     source /usr/share/doc/fzf/examples/completion.zsh
 else
-    source $HOME/.fzf.zsh
+    source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 fi
 
 # Options to fzf command
