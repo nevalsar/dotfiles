@@ -30,7 +30,17 @@ prompt powerlevel10k
 
 # configure junegunn/fzf
 eval "$(fzf --zsh)"
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --exclude .git'
+
+# Fix comment highlight color since kitty doesn't interpret bold colors as 
+# bright colors (zsh comments are set to bold black by zsh-syntax-highlighting
+# plugin
+if [[ $platform == 'linux' ]]; then
+    FAST_HIGHLIGHT_STYLES[comment]='fg=006'
+fi
+
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --exclude \
+    .git'
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 
 # Aliases
