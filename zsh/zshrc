@@ -15,18 +15,16 @@ antidote load
 # plugin post-load configuration ----------------------------------------------
 
 ## load starship.rs with zephyr prompt
-if [ ! -e ${HOME}/.config/starship.toml ]; then
-    ln -s "$(antidote path mattmc3/zephyr)"/plugins/prompt/themes/zephyr.toml \
-        ${HOME}/.config/starship.toml
-fi
-eval "$(starship init zsh)"
-
-
-autoload -Uz promptinit && promptinit && prompt zephyr
+# if [ ! -e ${HOME}/.config/starship.toml ]; then
+#     ln -s "$(antidote path mattmc3/zephyr)"/plugins/prompt/themes/zephyr.toml \
+#         ${HOME}/.config/starship.toml
+# fi
+# eval "$(starship init zsh)"
+# autoload -Uz promptinit && promptinit && prompt zephyr
 
 # load prompt
-prompt powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
 
 # configure junegunn/fzf
 eval "$(fzf --zsh)"
